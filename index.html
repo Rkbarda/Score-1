@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: sans-serif;
+      }
+      .card {
+        background: #26A69A;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+      }
+      .upper {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="errorDiv"><div>
+    <div class="card" id="scoreDiv">
+      <div class="upper">
+      <sub>Dilwan vs</sub>
+      <b>Kuriala - <span id="score">0/0</span></b>
+      </div>
+      <div class="lower">
+      <b>Overs - <span id="overs">0.0</span></b>
+      <b>Target - <span id="target">0</span></b>
+      </div>
+    </div>
+
+    <script>
+      function updateScore() {
+        $.ajax({
+          url: 'your_server_endpoint',
+          method: 'GET',
+          dataType: 'json',
+          success: function (data) {
+            $('#score').text(data.score);
+            $('#overs').text(data.overs);
+            $('#target').text(data.target);
+          },
+          error: function () {
+            $('#errorDiv').text('internal server error!')
+          },
+        });
+      }
+      setInterval(updateScore, 5000);
+    </script>
+  </body>
+    </html>
